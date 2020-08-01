@@ -2,19 +2,8 @@ import { User } from './models/User';
 
 const user = new User({ id: 1, name: 'maciek', age: 28 });
 
-user.save();
+user.events.on("check", ()=>{console.log("dupa")}) 
 
-async function updateUser() {
-
-  let promise = new Promise((resolve, reject) => {
-    setTimeout(() => resolve("done!"), 2000)
-  });
-
-  let result = await promise;
-
-  console.log(result)
-}
-
-updateUser();
+user.events.trigger("check")
 
 
