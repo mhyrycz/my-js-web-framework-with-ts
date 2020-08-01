@@ -1,9 +1,20 @@
 import { User } from './models/User';
 
-const user = new User({ id: 1 });
+const user = new User({ id: 1, name: 'maciek', age: 28 });
 
-user.fetch();
+user.save();
 
-setTimeout(() => {
-	console.log(user.get('name'));
-}, 4000);
+async function updateUser() {
+
+  let promise = new Promise((resolve, reject) => {
+    setTimeout(() => resolve("done!"), 2000)
+  });
+
+  let result = await promise;
+
+  console.log(result)
+}
+
+updateUser();
+
+
