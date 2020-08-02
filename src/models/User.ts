@@ -1,7 +1,8 @@
-import axios, { AxiosResponse } from 'axios';
 import { Eventing } from './Eventing';
+import { Sync } from './Sync';
+import { Attributes } from './Attributes';
 
-interface UserProps {
+export interface UserProps {
 	// optional props in interface
 	id?: number;
 	name?: string;
@@ -11,34 +12,15 @@ interface UserProps {
 export class User {
 	//option2
 	events: Eventing = new Eventing();
+	sync: Sync<UserProps> = new Sync<UserProps>('http://localhost:3000/users');
+	attributes: Attributes<UserProps>;
 
-	constructor(private data: UserProps) {}
-
-	get(propName: string): string | number {
-		return this.data[propName];
-	}
-
-	set(update: UserProps): void {
-		this.data = Object.assign(this.data, update);
-	}
-
-	fetch(): void {
-		axios.get(`http://localhost:3000/users/${this.get('id')}`).then((response: AxiosResponse): void => {
-			this.set(response.data);
-		});
-	}
-
-	save(): void {
-		const id = this.get('id');
-		if (id) {
-			axios.put(`http://localhost:3000/users/${id}`, this.data);
-		} else {
-			axios.post(`http://localhost:3000/users`, this.data);
-		}
+	constructor(private data: UserProps) {
+		this.attributes = new Attributes<UserProps>(this.data);
 	}
 }
 
-//Re-integrating eventing
+//Re-integrating Eventing
 // Option1
 // Accept dependencies as second constructor argument
 // new User({id: 1}, new Eventing())
@@ -46,3 +28,12 @@ export class User {
 // create new Eventing instance withing User constructor or with var declaration
 // Option3
 // Add static method creating new instance of User with events var in constructor and setting user data with this.set()
+
+//Re-integrating Sync
+// Option1
+// Sync methods get function arguments
+// It will be related only to User class (bada approach)
+// Option2
+// Sync expects arguments that satisfy interfaces Serialize(save) and Deserialize(fetch)
+// Option3
+// Creating Sync as generic class
