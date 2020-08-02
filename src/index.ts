@@ -8,4 +8,4 @@ user.on('check', () => {
 
 user.trigger('check');
 
-user.get('id');
+console.log(user.get('name'));
