@@ -2,10 +2,12 @@ import { User } from './models/User';
 
 const user = new User({ id: 1, name: 'maciek', age: 28 });
 
-user.on('check', () => {
-	console.log('check event');
+user.on('change', () => {
+	console.log(user);
 });
 
-user.trigger('check');
+// user.set({name: "maciek piotr"});
 
-console.log(user.get('name'));
+user.save();
+
+user.fetch();

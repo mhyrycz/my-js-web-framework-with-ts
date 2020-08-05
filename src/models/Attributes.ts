@@ -9,6 +9,10 @@ export class Attributes<T> {
 	set = (update: T): void => {
 		this.data = Object.assign(this.data, update);
 	};
+
+	getAll(): T {
+		return this.data;
+	}
 }
 
 //Options for get("id" | "number")
