@@ -1,14 +1,19 @@
 import axios, { AxiosResponse } from 'axios';
-
-interface EventingAttributes {
-	on(eventName: string, callback: () => void): void;
-	trigger(eventName: string): void;
-}
+import { Eventing } from './Eventing';
 
 export class Collection<K, T> {
 	private collection: K[] = [];
+	private events: Eventing = new Eventing();
 
-	constructor(private events: EventingAttributes, private rootUrl: string, private builder: (x: T) => K) {}
+	constructor(private rootUrl: string, private builder: (x: T) => K) {}
+
+	get trigger() {
+		return this.events.trigger;
+	}
+
+	get on() {
+		return this.events.on;
+	}
 
 	getAll(): K[] {
 		return this.collection;
@@ -20,7 +25,7 @@ export class Collection<K, T> {
 				const newElement = this.builder(element);
 				this.collection.push(newElement);
 			});
-			console.log(this.collection);
+			this.trigger('collection fetched');
 		});
 	}
 }

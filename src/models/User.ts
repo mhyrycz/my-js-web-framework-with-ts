@@ -2,6 +2,9 @@ import { Model } from './Model';
 import { Eventing } from './Eventing';
 import { Sync } from './Sync';
 import { Attributes } from './Attributes';
+import { Collection } from './Collection';
+
+const rootUrl = 'http://localhost:1235/users';
 
 export interface UserProps {
 	// optional props in interface
@@ -13,11 +16,11 @@ export interface UserProps {
 // new instance of User with static method
 export class User extends Model<UserProps> {
 	static buildUser(attrs: UserProps): User {
-        return new User(
-            new Eventing(), 
-            new Sync('http://localhost:1235/users'), 
-            new Attributes<UserProps>(attrs)
-        );
+		return new User(new Eventing(), new Sync(rootUrl), new Attributes<UserProps>(attrs));
+	}
+
+	static buildUserCollection(): Collection<User, UserProps> {
+		return new Collection<User, UserProps>(rootUrl, User.buildUser);
 	}
 }
 
