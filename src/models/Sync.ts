@@ -1,7 +1,5 @@
 import axios, { AxiosPromise } from 'axios';
 
-'http://localhost:3000/users';
-
 interface HasId {
 	// weakness of Typescript - optional arguments
 	id?: number;
@@ -10,8 +8,7 @@ interface HasId {
 export class Sync<T extends HasId> {
 	constructor(public rootUrl: string) {}
 
-    fetch(id: number): 
-    AxiosPromise {
+	fetch(id: number): AxiosPromise {
 		return axios.get(`${this.rootUrl}/${id}`);
 	}
 

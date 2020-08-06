@@ -1,13 +1,13 @@
 import { User } from './models/User';
 
-const user = new User({ id: 1, name: 'maciek', age: 28 });
+const maciek = User.buildUser({ name: 'maciek', age: 28 });
 
-user.on('change', () => {
-	console.log(user);
-});
+maciek.save();
 
-// user.set({name: "maciek piotr"});
-
-user.save();
-
-user.fetch();
+// new instance of User - my test approach
+// const testUser = new User(
+//    new Eventing(),
+//     new Sync("http://localhost:1235/users"),
+//     new Attributes<UserProps>({ name: "artur", age: 30})
+// )
+// testUser.save()
