@@ -34,9 +34,9 @@ export class Model<T extends HasId> {
 		return this.events.on;
 	}
 
-	get trigger() {
-		return this.events.trigger;
-	}
+	// Shortened Passthrough Methods - 
+	//it will works only if property is assigned and created from constructor property.
+	trigger = this.events.trigger;
 
 	get get() {
 		return this.attributes.get;
