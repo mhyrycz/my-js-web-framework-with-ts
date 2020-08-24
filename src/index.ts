@@ -20,3 +20,8 @@ dataCollection.fetch();
 //     new Attributes<UserProps>({ name: "artur", age: 30})
 // )
 // testUser.save()
+
+
+let newUser = User.buildUser({ name: "artur", age: 30})
+
+console.log(newUser.get("age"))

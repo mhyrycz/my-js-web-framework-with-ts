@@ -16,7 +16,7 @@ export interface UserProps {
 // new instance of User with static method
 export class User extends Model<UserProps> {
 	static buildUser(attrs: UserProps): User {
-		return new User(new Eventing(), new Sync(rootUrl), new Attributes<UserProps>(attrs));
+		return new User(new Eventing(), new Sync(rootUrl), new Attributes(attrs));
 	}
 
 	static buildUserCollection(): Collection<User, UserProps> {
