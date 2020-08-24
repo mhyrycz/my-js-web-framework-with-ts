@@ -1,8 +1,17 @@
 export class UserForm {
 	constructor(public parent: Element) {}
 
+	eventsMap(): { [key: string]: () => void } {
+		return {
+			'click:button': this.onButtonClick,
+			'mouseenter:h1': function() {
+				console.log('enter');
+			}
+		};
+	}
+
 	onButtonClick(): void {
-		console.log('dupa');
+		console.log('button click text');
 	}
 
 	template(): string {
@@ -14,15 +23,22 @@ export class UserForm {
         `;
 	}
 
-	bindEvents(templateElement: HTMLTemplateElement): void {
-		const button = templateElement.content.querySelectorAll("button")[0]
-		button.addEventListener('click',this.onButtonClick);
+	bindEvents(templateElement: DocumentFragment): void {
+		const eventsMap = this.eventsMap();
+		// for (let eventKey of Object.keys(eventsMap)) is correct too
+		for (let eventKey in eventsMap) {
+			const [ eventName, selector ] = eventKey.split(':');
+
+			templateElement.querySelectorAll(selector).forEach((element) => {
+				element.addEventListener(eventName, eventsMap[eventKey]);
+			});
+		}
 	}
 
 	render(): void {
 		const templateElement = document.createElement('template');
 		templateElement.innerHTML = this.template();
-		this.bindEvents(templateElement);
+		this.bindEvents(templateElement.content);
 		this.parent.append(templateElement.content);
 	}
 }
