@@ -1,3 +1,4 @@
+import { HtmlRenderer } from './views/HtmlRenderer';
 import { UserForm } from './views/UserForm';
 import { User } from './models/User';
 
@@ -7,6 +8,6 @@ const root = document.getElementById('root');
 
 // type guard
 if (root) {
-	const userForm = new UserForm(root, newUser);
-	userForm.render();
+	const htmlRenderer = new HtmlRenderer<UserForm>(new UserForm(root, newUser));
+	htmlRenderer.render();
 }

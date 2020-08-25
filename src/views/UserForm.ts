@@ -1,10 +1,10 @@
 import { User } from '../models/User';
 
 export class UserForm {
-	constructor(public parent: Element, public model: User) {
-		this.model.on('change', () => {
-			this.render();
-		});
+	constructor(public parent: Element, public model: User) {}
+
+	get on() {
+		return this.model.on;
 	}
 
 	eventsMap(): { [key: string]: () => void } {
@@ -41,24 +41,5 @@ export class UserForm {
                 <button class='set-age'>set random age</button>
             </div>
         `;
-	}
-
-	bindEvents(templateElement: DocumentFragment): void {
-		const eventsMap = this.eventsMap();
-		// for (let eventKey of Object.keys(eventsMap)) is correct too
-		for (let eventKey in eventsMap) {
-			const [ eventName, selector ] = eventKey.split(':');
-			templateElement.querySelectorAll(selector).forEach((element) => {
-				element.addEventListener(eventName, eventsMap[eventKey]);
-			});
-		}
-	}
-
-	render(): void {
-		this.parent.innerHTML = '';
-		const templateElement = document.createElement('template');
-		templateElement.innerHTML = this.template();
-		this.bindEvents(templateElement.content);
-		this.parent.append(templateElement.content);
 	}
 }
