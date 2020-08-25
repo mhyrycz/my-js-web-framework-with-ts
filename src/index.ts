@@ -3,6 +3,10 @@ import { User } from './models/User';
 
 const newUser = User.buildUser({ name: 'maciek', age: 28 });
 
-const userForm = new UserForm(document.getElementById('root'), newUser);
+const root = document.getElementById('root');
 
-userForm.render();
+// type guard
+if (root) {
+	const userForm = new UserForm(root, newUser);
+	userForm.render();
+}
