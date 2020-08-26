@@ -34,32 +34,11 @@ export class UserForm extends View<User, UserProps> {
 		return `
             <div>
                 <h1> User Form</h1>
-                <div>${this.model.get('name')}</div>
-                <div>${this.model.get('age')}</div>
                 <input placeholder="${this.model.get('name')}"/>
                 <button class='set-name'>Change name</button>
                 <button class='set-age'>Set random age</button>
                 <button class='save-model'>Save</button> 
             </div>
         `;
-	}
-
-	bindEvents(templateElement: DocumentFragment): void {
-		const eventsMap = this.eventsMap();
-		// for (let eventKey of Object.keys(eventsMap)) is correct too
-		for (let eventKey in eventsMap) {
-			const [ eventName, selector ] = eventKey.split(':');
-			templateElement.querySelectorAll(selector).forEach((element) => {
-				element.addEventListener(eventName, eventsMap[eventKey]);
-			});
-		}
-	}
-
-	render(): void {
-		this.parent.innerHTML = '';
-		const templateElement = document.createElement('template');
-		templateElement.innerHTML = this.template();
-		this.bindEvents(templateElement.content);
-		this.parent.append(templateElement.content);
 	}
 }
