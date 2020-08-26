@@ -6,9 +6,14 @@ export class UserForm2 extends View<User, UserProps> {
 		return {
 			//'click:.set-age': this.onSetAgeClick.bind(this)
 			'click:.set-age': this.onSetAgeClick,
-			'click:.set-name': this.onSetNameClick
+			'click:.set-name': this.onSetNameClick,
+			'click:.save-model': this.onSaveClick
 		};
 	}
+
+	onSaveClick = (): void => {
+		this.model.save();
+	};
 
 	// 'this' would be undefined if you invoke this function inside for loop,
 	//that's why we use function declaration here instead of function expression
@@ -31,9 +36,10 @@ export class UserForm2 extends View<User, UserProps> {
                 <h1> User Form</h1>
                 <div>${this.model.get('name')}</div>
                 <div>${this.model.get('age')}</div>
-                <input />
+                <input placeholder="${this.model.get('name')}"/>
                 <button class='set-name'>Change name</button>
-                <button class='set-age'>set random age</button>
+                <button class='set-age'>Set random age</button>
+                <button class='save-model'>Save</button>
             </div>
         `;
 	}
