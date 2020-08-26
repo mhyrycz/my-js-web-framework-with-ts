@@ -1,7 +1,7 @@
 import { View } from './View';
 import { User, UserProps } from '../../models/User';
 
-export class UserForm2 extends View<User, UserProps> {
+export class UserForm extends View<User, UserProps> {
 	eventsMap(): { [key: string]: () => void } {
 		return {
 			//'click:.set-age': this.onSetAgeClick.bind(this)
@@ -39,7 +39,7 @@ export class UserForm2 extends View<User, UserProps> {
                 <input placeholder="${this.model.get('name')}"/>
                 <button class='set-name'>Change name</button>
                 <button class='set-age'>Set random age</button>
-                <button class='save-model'>Save</button>
+                <button class='save-model'>Save</button> 
             </div>
         `;
 	}

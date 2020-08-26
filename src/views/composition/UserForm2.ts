@@ -1,6 +1,6 @@
 import { User } from '../../models/User';
 
-export class UserForm {
+export class UserForm2 {
 	constructor(public parent: Element, public model: User) {}
 
 	get on() {
