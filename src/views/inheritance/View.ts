@@ -1,8 +1,6 @@
-interface CustomInterface {
-	on(eventName: string, callback: () => void): void;
-}
+import { Model } from '../../models/Model';
 
-export abstract class View<T extends CustomInterface> {
+export abstract class View<T extends Model<K>, K> {
 	abstract eventsMap(): { [key: string]: () => void };
 	abstract template(): string;
 
